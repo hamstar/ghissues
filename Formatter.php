@@ -28,10 +28,11 @@ class Formatter {
 		$t = &$this->markdown;
 		$t.= "\n\n### Use Case #{$uc->number}: {$uc->title}\t{$uc->prio}";
 		$t.= "\n\n{$uc->body}";
-		$t.= "\n\n#### Requirements\n";
 
 		if ( empty( $uc->reqs ) )
 			return true;
+
+		$t.= "\n\n#### Requirements\n";
 
 		foreach ( $uc->reqs as $r )
 			$this->format_req( $r );
