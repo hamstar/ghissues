@@ -31,13 +31,15 @@ class ReqsBuilder {
 		
 		foreach ( $this->issues as &$i ) {
 
-			if ( $this->has_label( $i, "⚑⚑⚑") )
+			$i->prio = "";
+
+			if ( $this->has_label( $i, "prio:high") )
 				$i->prio = "High";
 
-			if ( $this->has_label( $i, "⚑⚑") )
+			if ( $this->has_label( $i, "prio:medium") )
 				$i->prio = "Medium";
 
-			if ( $this->has_label( $i, "⚑") )
+			if ( $this->has_label( $i, "prio:low") )
 				$i->prio = "Low";
 		}
 	}
