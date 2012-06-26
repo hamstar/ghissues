@@ -8,6 +8,8 @@ class Github {
 		
 		$repo = explode( ":", $repo_string );
 		$this->api_url.= "/{$repo[0]}/{$repo[1]}";
+		list( $user, $repo ) = explode( ":", $repo_string );
+		$this->api_url.= "/$user/$repo";
 		$this->curl = $curl;
 	}
 
