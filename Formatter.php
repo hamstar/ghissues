@@ -1,6 +1,6 @@
 <?php
 
-class Formatter {
+class IssueFormatter {
 
 	private $markdown;
 	private $builder;
