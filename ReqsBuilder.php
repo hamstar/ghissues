@@ -48,6 +48,9 @@ class ReqsBuilder {
 		
 		foreach ( $this->issues as $i ) {
 			
+			if ( $this->check_fields( $i ) )
+				continue;
+
 			if ( $this->has_label( $i, 'feature') ) {
 				$this->features[ $i->number ] = $i;
 			}
@@ -107,5 +110,16 @@ class ReqsBuilder {
 		}
 
 		return array();
+	}
+
+	function check_fields( $i ) {
+		
+		if ( !isset( $i->title ) )
+			return FALSE;
+
+		if ( !isset( $i->body ) )
+			return FALSE;
+
+		return TRUE;
 	}
 }
