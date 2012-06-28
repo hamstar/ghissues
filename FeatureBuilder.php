@@ -44,6 +44,7 @@ class FeatureBuilder {
 		
 		foreach ( $this->issues as $i ) {
 
+			if ( !$this->check_fields( $i ) )
 				continue;
 
 			if ( $this->has_label( $i, 'feature') ) {
