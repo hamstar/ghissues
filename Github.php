@@ -41,4 +41,19 @@ class Github {
 
 		return $issues;
 	}
+
+	static function print_issues( $issues ) {
+
+		foreach ( $issues as $i ) {
+
+			$labels = array();
+			if ( count( $i->labels ) > 0 ) {
+				foreach ( $i->labels as $l ) {
+					$labels[] = $l->name;
+				}
+			}
+
+			echo("Issue {$i->number}: {$i->title} (".implode(',', $labels).")<br/>");
+		}
+	}
 }
