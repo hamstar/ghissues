@@ -6,7 +6,7 @@ class Github {
 
 	function __construct( $repo_string, Curl $curl ) {
 		
-		list( $user, $repo ) = explode( ":", $repo_string );
+		list( $user, $repo ) = explode( "/", $repo_string );
 		$this->api_url.= "/$user/$repo";
 		$this->curl = $curl;
 	}
