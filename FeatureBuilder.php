@@ -12,8 +12,7 @@ class FeatureBuilder {
 	}
 
 	function run() {
-		
-		$this->get_issues();
+
 		$this->calculate_priorities();
 		$this->build_features();
 		$this->build_use_cases();
@@ -21,7 +20,7 @@ class FeatureBuilder {
 	}
 
 	function get_features() {
-		return $features;
+		return $this->features;
 	}
 
 	function calculate_priorities() {
