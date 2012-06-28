@@ -29,9 +29,9 @@ if ( isset( $_GET['verbose'] ) ) { // print the features one per line
 $start = microtime(true);
 $builder = new FeatureBuilder( $issues );
 $features = $builder->get_features();
-echo round( microtime(true) - $start, 2 )." seconds to process features<br/><br/>";
+echo round( microtime(true) - $start, 2 )." seconds to process ".count($issues)." issues into ".count($features)." features<br/><br/>";
 
-echo "Printing issues...<br/><br/>";
+echo "Printing formatted features...<br/><br/>";
 $fmtr = new IssueFormatter( $features );
 $fmtr->remove_lines( $lines );
 
