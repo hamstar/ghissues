@@ -4,6 +4,7 @@ class IssueFormatter {
 
 	private $markdown;
 	private $builder;
+	private $remove_lines;
 
 	function __construct( ReqsBuilder $builder ) {
 		
@@ -56,5 +57,10 @@ class IssueFormatter {
 		
 		$this->run();
 		return $this->markdown;
+	}
+
+	function remove_lines( $lines ) {
+		$this->remove_lines = $lines;
+		return $this;
 	}
 }
