@@ -1,6 +1,9 @@
 <?php
 
 
+$lines = array(
+  "/^@huboard/"
+);
 
 include 'global.php';
 
@@ -22,4 +25,6 @@ echo round( microtime(true) - $start, 2 )." seconds to process features<br/><br/
 
 echo "Printing issues...<br/><br/>";
 $fmtr = new IssueFormatter( $features );
+$fmtr->remove_lines( $lines );
+
 echo Markdown( $fmtr->get_markdown() );
