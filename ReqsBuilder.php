@@ -2,15 +2,14 @@
 
 class ReqsBuilder {
 	
-	private $gh;
 
 	public $reqs;
 	public $use_cases;
 	public $features;
 
-	function __construct( $github ) {
-		
-		$this->gh = $github;
+	function __construct( $issues ) {
+		$this->issues = $issues;
+		$this->run();
 	}
 
 	function run() {
