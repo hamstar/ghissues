@@ -41,3 +41,12 @@ to:
 ```$builder = new ReqsBuilder( new Github( "yourname:yourrepo", new Curl ) );```
 
 Then navigate to the index page to get the formatted text.  Copying and pasting this in to a modern word processor should keep the formatting intact.
+
+# Navigation
+
+These are a few ways to access the script
+
+```http://example.com/?repo=hamstar/Braincase # format all the issues for the repo
+http://example.com/?repo=hamstar/Braincase&cache # format all the issues for the repo from the cache (last requested issues)
+http://example.com/?repo=hamstar/Braincase&verbose # format all the issues but also print the issues titles and ids one per line
+```
