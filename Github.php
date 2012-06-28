@@ -14,8 +14,8 @@ class Github {
 	/**
 	* @return array all the issues for the current repo
 	*/
-	function issues() {
-		
+	function get_issues() {
+
 		$issues = array();
 		$page_has_issues = TRUE;
 		$page = 1;
