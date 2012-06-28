@@ -110,10 +110,10 @@ class FeatureBuilder {
 
 	function check_fields( $i ) {
 		
-		if ( !isset( $i->title ) )
+		if ( $i->title == "" )
 			return FALSE;
 
-		if ( !isset( $i->body ) )
+		if ( $i->body == "" )
 			return FALSE;
 
 		return TRUE;
