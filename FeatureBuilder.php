@@ -44,15 +44,6 @@ class FeatureBuilder {
 		
 		foreach ( $this->issues as $i ) {
 
-			$labels = array();
-			if ( count( $i->labels ) > 0 ) {
-				foreach ( $i->labels as $l ) {
-					$labels[] = $l->name;
-				}
-			}
-
-			echo("Issue {$i->number}: {$i->title} (".implode(',', $labels).")<br/>");
-			if ( $this->check_fields( $i ) )
 				continue;
 
 			if ( $this->has_label( $i, 'feature') ) {
