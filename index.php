@@ -7,10 +7,14 @@ $lines = array(
 
 include 'global.php';
 
-$start = microtime(true);
-$gh = new Github( "hamstar:Braincase", new Curl )
-$issues = $gh->get_issues();
-echo round( microtime(true) - $start, 2 )." seconds to get issues<br/><br/>";
+if ( isset( $_GET['cache'] ) ) { // use the local cache
+	$issues = json_decode( file_get_contents("issues.txt") );
+} else {
+	$start = microtime(true);
+	$gh = new Github( $repo, new Curl );
+	$issues = $gh->get_issues();
+	echo round( microtime(true) - $start, 2 )." seconds to get issues from github<br/><br/>";
+}
 
 if ( isset( $_GET['verbose'] ) ) { // print the features one per line
 	echo "Printing feature list:<br/>";
