@@ -3,16 +3,16 @@
 class IssueFormatter {
 
 	private $markdown;
-	private $builder;
+	private $features;
 	private $remove_lines;
 
-	function __construct( ReqsBuilder $builder ) {
+	function __construct( $features ) {
 		
-		$this->builder = $builder;
+		$this->features = $features;
 	}
 
 	function format_feature( $f ) {
-		
+
 		$t = &$this->markdown;
 		$t.= "\n\n## {$f->title}\t{$f->prio}";
 		$t.= $this->process_body("\n\n{$f->body}");
@@ -47,7 +47,7 @@ class IssueFormatter {
 
 	function run() {
 		
-		foreach ( $this->builder->features as $f ) {
+		foreach ( $this->features as $f ) {
 			
 			$this->format_feature( $f );
 		}
