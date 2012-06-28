@@ -22,9 +22,8 @@ class ReqsBuilder {
 		$this->build_reqs();
 	}
 
-	function get_issues() {
-		
-		$this->issues = $this->gh->issues();
+	function get_features() {
+		return $features;
 	}
 
 	function calculate_priorities() {
