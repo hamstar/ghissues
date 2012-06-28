@@ -1,5 +1,9 @@
 <?php
 
+if ( !isset( $_GET['repo'] ) )
+	die("Please specify a repo to get like index.php?repo=hamstar/Braincase");
+
+$repo = $_GET['repo'];
 
 $lines = array(
   "/^@huboard/"
