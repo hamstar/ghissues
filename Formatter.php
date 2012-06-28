@@ -15,7 +15,7 @@ class IssueFormatter {
 		
 		$t = &$this->markdown;
 		$t.= "\n\n## {$f->title}\t{$f->prio}";
-		$t.= "\n\n{$f->body}";
+		$t.= $this->process_body("\n\n{$f->body}");
 
 		if ( empty( $f->use_cases ) )
 			return true;
@@ -28,7 +28,7 @@ class IssueFormatter {
 		
 		$t = &$this->markdown;
 		$t.= "\n\n### Use Case #{$uc->number}: {$uc->title}\t{$uc->prio}";
-		$t.= "\n\n{$uc->body}";
+		$t.= $this->process_body("\n\n{$uc->body}");
 
 		if ( empty( $uc->reqs ) )
 			return true;
@@ -62,5 +62,19 @@ class IssueFormatter {
 	function remove_lines( $lines ) {
 		$this->remove_lines = $lines;
 		return $this;
+	}
+
+	function process_body( $text ) {
+		
+		$lines = explode("\n", $text);
+
+		foreach ( $lines as $i => $line )
+			foreach ( $this->remove_lines as $regex )
+				if ( preg_match( $regex, $line ) )
+					unset( $lines[$i] );
+		
+		$text = implode("\n", $lines );
+		
+		return $text;
 	}
 }
