@@ -39,6 +39,7 @@ class Github {
 			++$page; // and hit the next page on the next loop
 		}
 
+		file_put_contents("issues.txt", json_encode( $issues ) );
 		return $issues;
 	}
 
