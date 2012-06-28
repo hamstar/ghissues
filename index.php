@@ -1,38 +1,78 @@
 <?php
 
-if ( !isset( $_GET['repo'] ) )
-	die("Please specify a repo to get like index.php?repo=hamstar/Braincase");
+	if ( !isset( $_GET['repo'] ) || $_GET['repo'] == "" )
+		die("Please specify a repo to get like index.php?repo=hamstar/Braincase");
 
-$repo = $_GET['repo'];
+	$repo = $_GET['repo'];
 
-$lines = array(
-  "/^@huboard/"
-);
+	$lines = array(
+	  "/^@huboard/" // remove huboard tags
+	);
 
-include 'global.php';
+	include 'global.php';
 
-if ( isset( $_GET['cache'] ) ) { // use the local cache
-	$issues = json_decode( file_get_contents("issues.txt") );
-} else {
-	$start = microtime(true);
-	$gh = new Github( $repo, new Curl );
-	$issues = $gh->get_issues();
-	echo round( microtime(true) - $start, 2 )." seconds to get issues from github<br/><br/>";
-}
+?>
+<html>
+	<head>
+		<title>Ghissues</title>
+	</head>
+	<body>
 
-if ( isset( $_GET['verbose'] ) ) { // print the features one per line
-	echo "Printing feature list:<br/>";
-	Github::print_issues( $issues );
-	echo "<br/>";
-}
+		<div style="border: 2px solid black; background: #F4E790; padding: 10px;">
 
-$start = microtime(true);
-$builder = new FeatureBuilder( $issues );
-$features = $builder->get_features();
-echo round( microtime(true) - $start, 2 )." seconds to process ".count($issues)." issues into ".count($features)." features<br/><br/>";
+			<?php
 
-echo "Printing formatted features...<br/><br/>";
-$fmtr = new IssueFormatter( $features );
-$fmtr->remove_lines( $lines );
+			if ( isset( $_GET['repo'] ) && isset( $_GET['cache'] ) )
+				echo "WARNING: The cache argument overrides the repo argument and loads the issues from the last repo used without the cache argument<br/><br/>";
 
-echo Markdown( $fmtr->get_markdown() );
+			if ( isset( $_GET['cache'] ) ) { // use the local cache
+				$issues = json_decode( file_get_contents("issues.txt") );
+				echo "Using ".count( $issues )." issues from the cache<br/><br/>";
+			} else {
+				$start = microtime(true);
+				$gh = new Github( $repo, new Curl );
+				$issues = $gh->get_issues();
+				echo round( microtime(true) - $start, 2 )." seconds to get ".count( $issues )." issues from github repo $repo<br/><br/>";
+			}
+
+			if ( isset( $_GET['verbose'] ) ) { // print the features one per line
+				echo "Printing feature list:<br/>";
+				Github::print_issues( $issues );
+				echo "<br/>";
+			}
+
+			$start = microtime(true);
+			$builder = new FeatureBuilder( $issues );
+			$features = $builder->get_features();
+			echo round( microtime(true) - $start, 2 )
+				." seconds to process "
+				.count($issues)." issues into "
+				.count($features)." features, "
+				.count($builder->use_cases)." use cases and "
+				.count($builder->reqs)." requirements<br/><br/>";
+
+			echo "Printing formatted features...";
+
+			?>
+			
+			<pre>
+			<?php
+
+			$fmtr = new IssueFormatter( $features );
+			$fmtr->remove_lines( $lines );
+
+			$text = Markdown( $fmtr->get_markdown() );
+
+			?>
+			</pre>
+
+		</div>
+
+		<div>
+
+			<?php echo $text; ?>
+
+		</div>
+
+	</body>
+</html>
