@@ -48,6 +48,7 @@
 				." seconds to process "
 				.count($issues)." issues into "
 				.count($features)." features, "
+				.count($builder->user_scenarios)." user scenarios, "
 				.count($builder->use_cases)." use cases and "
 				.count($builder->reqs)." requirements<br/><br/>";
 
