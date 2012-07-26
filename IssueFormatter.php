@@ -14,7 +14,7 @@ class IssueFormatter {
 	function format_feature( $f ) {
 
 		$t = &$this->markdown;
-		$t.= "\n\n## {$f->title}\t{$f->prio}";
+		$t.= "\n\n## Feature #{$f->number}: {$f->title}\t{$f->prio}";
 		$t.= $this->process_body("\n\n{$f->body}");
 
 		if ( empty( $f->use_cases ) )
