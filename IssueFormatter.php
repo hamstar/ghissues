@@ -39,6 +39,20 @@ class IssueFormatter {
 			$this->format_req( $r );
 	}
 
+	function format_user_scenario( $us ) {
+		$t = &$this->markdown;
+		$t.= "\n\n### User Scenario #{$us->number}: {$us->title}\t{$us->prio}";
+		$t.= $this->process_body("\n\n{$us->body}");
+
+		if ( empty( $us->reqs ) )
+			return true;
+
+		$t.= "\n\n#### Requirements\n";
+
+		foreach ( $us->reqs as $r )
+			$this->format_req( $r );
+	}
+
 	function format_req( $r ) {
 		
 		$t = &$this->markdown;
