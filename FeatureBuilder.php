@@ -16,6 +16,7 @@ class FeatureBuilder {
 		$this->calculate_priorities();
 		$this->build_features();
 		$this->build_use_cases();
+		$this->build_user_scenarios();
 		$this->build_reqs();
 	}
 
@@ -64,6 +65,21 @@ class FeatureBuilder {
 
 				$this->use_cases[ $i->number ] = $i;
 				$this->features[ $id ]->use_cases[ $i->number ] = &$this->use_cases[ $i->number ];
+			}
+		}
+	}
+
+	function build_user_scenarios() {
+
+		foreach ( $this->issues as $i ) {
+			
+			if ( $this->has_label( $i, 'user-scenario') ) {
+
+				$id = array_shift( $this->get_parent_ids( $i ) );
+				$i->body = substr( $i->body, strpos($i->body, "\n") );
+
+				$this->user_scenarios[ $i->number ] = $i;
+				$this->features[ $id ]->user_scenarios[ $i->number ] = &$this->user_scenarios[ $i->number ];
 			}
 		}
 	}
