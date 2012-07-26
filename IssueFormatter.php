@@ -17,11 +17,17 @@ class IssueFormatter {
 		$t.= "\n\n## Feature #{$f->number}: {$f->title}\t{$f->prio}";
 		$t.= $this->process_body("\n\n{$f->body}");
 
-		if ( empty( $f->use_cases ) )
-			return true;
+		if ( !empty( $f->use_cases ) ) {
 
-		foreach ( $f->use_cases as $uc )
-			$this->format_use_case( $uc );
+			foreach ( $f->use_cases as $uc )
+				$this->format_use_case( $uc );
+		}
+
+		if ( !empty( $f->user_scenarios ) ) {
+
+			foreach ( $f->user_scenarios as $us )
+				$this->format_user_scenario( $us );
+		}
 	}
 
 	function format_use_case( $uc ) {
